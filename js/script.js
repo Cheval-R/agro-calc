@@ -486,21 +486,3 @@ function fertilizerCatch(fertilizerN, fertilizerP, fertilizerK) {
 		}
 	});
 }
-
-
-
-
-
-
-
-// Получаем элемент select по id
-const selectElement = document.getElementById('select');
-
-// Добавляем обработчик события change
-selectElement.addEventListener('change', function () {
-	// Получаем выбранное значение
-	const selectedValue = selectElement.value;
-
-	// Делаем что-то с выбранным значением
-	console.log('Выбрано значение:', selectedValue);
-});
