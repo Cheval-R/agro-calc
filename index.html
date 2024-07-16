@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Рассчёт удобрений</title>
+	<link rel="shortcut icon" type="image/png" href="./img/favicon.png" />
+	<link rel="stylesheet" href="./css/fonts.css">
+	<link rel="stylesheet" href="./css/style.css">
+	<script type="module" src="./js/jquery-3.7.1.min.js"></script>
+	<script type="module" src="./js/crops.js"></script>
+	<script type="module" src="./js/fertilizer.js"></script>
+	<script type="module" src="./js/fields.js"></script>
+	<script type="module" src="./js/script.js"></script>
+</head>
+
+<body>
+	<header class="header">
+		<img class="header__logo" src="./img/logo-tahs.png" alt="">
+		<div class="header__links">
+			<a class="header__link" href="#!">Ставропольский участок</a>
+			<a class="header__link" href="#!">Сызранский участок</a>
+		</div>
+	</header>
+	<main>
+		<button id="calculate">Рассчитать</button>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>№ Поля</th>
+					<th>Площадь</th>
+					<th class="crop-head">Культура</th>
+					<th class="harvest-head">План. урожай</th>
+					<th>Удобрение</th>
+
+					<!-- !Результаты -->
+					<th>Азот<br>кг.д.в./га</th>
+					<th>Фосфор<br>кг.д.в./га</th>
+					<th>Калий<br>кг.д.в./га</th>
+
+					<th>Азот<br>т.д.в./поле</th>
+					<th>Фосфор<br>т.д.в./поле</th>
+					<th>Калий<br>т.д.в./поле</th>
+
+					<th>Азот<br>руб/га</th>
+					<th>Фосфор<br>руб/га</th>
+					<th>Калий<br>руб/га</th>
+
+					<th>Азот<br>руб/поле</th>
+					<th>Фосфор<br>руб/поле</th>
+					<th>Калий<br>руб/поле</th>
+
+					<th>Общ.<br>руб/га</th>
+					<th>Общ.<br>руб/поле</th>
+				</tr>
+
+			</thead>
+			<tbody>
+				<tr class="row">
+					<td class="field-number">1/1</td>
+					<td class="field-area">142</td>
+					<td class="crop-cell">
+						<select id="select">
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">1/2</td>
+					<td class="field-area">200</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">2</td>
+					<td class="field-area">200</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">5</td>
+					<td class="field-area">346</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">6</td>
+					<td class="field-area">101</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">7</td>
+					<td class="field-area">174</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">13</td>
+					<td class="field-area">130</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">15</td>
+					<td class="field-area">175</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">16</td>
+					<td class="field-area">285</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">17/1</td>
+					<td class="field-area">210</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">17/2</td>
+					<td class="field-area">200</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">17/3</td>
+					<td class="field-area">222</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">18</td>
+					<td class="field-area">100</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">19</td>
+					<td class="field-area">150</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+				<tr class="row">
+					<td class="field-number">20</td>
+					<td class="field-area">200</td>
+					<td class="crop-cell">
+						<select>
+							<option>Пшеница яровая</option>
+							<option>Пшеница озимая</option>
+							<option>Рожь озимая</option>
+							<option>Ячмень яровой</option>
+							<option>Овес</option>
+							<option>Кукуруза на зерно</option>
+							<option>Кукуруза на силос</option>
+							<option>Рапс яровой</option>
+							<option>Горчица</option>
+							<option>Соя</option>
+							<option>Картофель</option>
+							<option>Люцерна</option>
+							<option>Просо</option>
+							<option>Гречиха</option>
+							<option>Горох</option>
+							<option>Вика</option>
+							<option>Подсолнечник</option>
+							<option>Свёкла сахарная</option>
+							<option>Кормовая свекла</option>
+							<option>Пар</option>
+							<option>Турнепс</option>
+							<option>Кормовая морковь</option>
+							<option>Столовая свекла</option>
+							<option>Вика с овсом</option>
+							<option>Клевер с тимофеевкой</option>
+							<option>Эспарцет</option>
+							<option>Сераделла</option>
+							<option>Естественные пастбища</option>
+							<option>Клевер</option>
+							<option>Тимофеевка</option>
+							<option>Подсолнечник з/м</option>
+							<option>Горох с овсом з/м</option>
+							<option>Вика с овсом з/м</option>
+							<option>Рожь озимая з/м</option>
+							<option>Рапс з/м</option>
+							<option>Капуста белокочанная</option>
+							<option>Томаты</option>
+							<option>Огурцы</option>
+							<option>Лук</option>
+							<option>Плодовые и ягодные</option>
+						</select>
+					</td>
+					<td class="harvest-cell">
+						<input type="number">
+					</td>
+					<td class="fertilizer-cell">
+						<div class="fertilizer-wrapper-n">
+							<label>Азотное</label>
+							<select class="fertilizer-nitrogen-cell">
+								<option>Нет</option>
+								<option>Аммиачная селитра</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Сульфонитрат(30:7)</option>
+								<option>Сульфонитрат(26:13)</option>
+								<option>КАС(28)</option>
+								<option>Карбамид</option>
+								<option>Сульфат аммония</option>
+								<option>Безводный аммиак</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-p">
+							<label>Фосфорное</label>
+							<select class="fertilizer-phosphorus-cell">
+								<option>Нет</option>
+								<option>Аммофос(52)</option>
+								<option>Аммофос(46)</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+								<option>Фосмука</option>
+							</select>
+						</div>
+
+						<div class="fertilizer-wrapper-k">
+							<label>Калийное</label>
+							<select class="fertilizer-potassium-cell">
+								<option>Нет</option>
+								<option>Калий хлористый</option>
+								<option>Диаммофоска</option>
+								<option>Азофоска(15)</option>
+								<option>Азофоска(16)</option>
+								<option>NPKS(4)</option>
+								<option>NPKS(8)</option>
+							</select>
+						</div>
+					</td>
+					<td class="active-substance-nitrogen-ga">0</td>
+					<td class="active-substance-phosphorus-ga">0</td>
+					<td class="active-substance-potassium-ga">0</td>
+
+					<td class="active-substance-nitrogen-field">0</td>
+					<td class="active-substance-phosphorus-field">0</td>
+					<td class="active-substance-potassium-field">0</td>
+
+					<td class="price-nitrogen-ga">0</td>
+					<td class="price-phosphorus-ga">0</td>
+					<td class="price-potassium-ga">0</td>
+
+					<td class="price-nitrogen-field">0</td>
+					<td class="price-phosphorus-field">0</td>
+					<td class="price-potassium-field">0</td>
+
+					<td class="price-total-ga">0</td>
+					<td class="price-total-field">0</td>
+				</tr>
+			</tbody>
+		</table>
+
+
+	</main>
+</body>
+
+</html>
